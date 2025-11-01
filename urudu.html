@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Urdu Courses - ALPHA Language Academy</title>
+    <link rel="icon" type="image/png" href="assets/images/icon.png">
+    
+    <!-- Poppins font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary: #1a2a6c;
+            --secondary: #b21f1f;
+            --accent: #fdbb2d;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), #2a3a8c);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-right: 20px;
+        }
+        
+        .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .academy-name {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgb(255, 255, 255);
+            letter-spacing: 1px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .free-badge {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .main-content {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: var(--secondary);
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            color: #444;
+        }
+        
+        .levels-section {
+            margin: 40px 0;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            bottom: -8px;
+            left: 20%;
+        }
+        
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .level-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 3px solid transparent;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .level-header {
+            padding: 20px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .free-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .beginner .level-header {
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+        }
+        
+        .intermediate .level-header {
+            background: linear-gradient(to right, #FF9800, #FFC107);
+        }
+        
+        .advanced .level-header {
+            background: linear-gradient(to right, #F44336, #E91E63);
+        }
+        
+        .level-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        .level-desc {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .level-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        
+        .level-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .level-features li:before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .level-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .level-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .free-note {
+            background: #e8f5e8;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .specialization-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .specialization-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .specialization-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .urdu-script {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin: 10px 0;
+            direction: rtl;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            text-align: left;
+        }
+        
+        .copyright {
+            text-align: right;
+        }
+        
+        @media (max-width: 768px) {
+            .academy-name {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .logo img {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .levels-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .specialization-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .contact-info, .copyright {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        
+        <div class="main-content">
+            <a href="index.html" class="back-btn">← Back to All Languages</a>
+            
+            <div class="intro">
+                <h1>Free Urdu Language Courses</h1>
+                <p>Discover the poetic beauty of Urdu, a language known for its elegance, rich literary tradition, and cultural significance across South Asia. With over 230 million speakers, Urdu opens doors to beautiful poetry, literature, and cultural understanding.</p>
+                
+                <div class="free-note">
+                    <strong>Why Free?</strong> We believe Urdu education should be accessible to everyone who appreciates its beauty. All our courses are completely free - no hidden costs, no subscriptions, just quality education for language enthusiasts.
+                </div>
+                
+                <p>Choose your proficiency level to begin your Urdu learning journey:</p>
+            </div>
+            
+            <div class="levels-section">
+                <h2>Free Course Levels</h2>
+                <div class="levels-grid">
+                    <div class="level-card beginner">
+                        <div class="level-header">
+                            Beginner Level
+                            <div class="free-tag">FREE</div>
+                        </div>
+                        <div class="level-content">
+                            <p class="level-desc">Start with Urdu script, basic vocabulary, and essential phrases for everyday communication.</p>
+                            <ul class="level-features">
+                                <li>Urdu alphabet (Nastaliq script) and writing</li>
+                                <li>Basic greetings and introductions</li>
+                                <li>Essential vocabulary (350+ words)</li>
+                                <li>Simple sentence structures</li>
+                                <li>Numbers, days, and basic phrases</li>
+                                <li>Pronunciation and listening practice</li>
+                                <li>Certificate of completion</li>
+                            </ul>
+                            <a href="#" class="level-btn"> Start Learning!</a>
+                        </div>
+                    </div>
+                    
+                    <div class="level-card intermediate">
+                        <div class="level-header">
+                            Intermediate Level
+                            <div class="free-tag">FREE</div>
+                        </div>
+                        <div class="level-content">
+                            <p class="level-desc">Build fluency with Urdu grammar, expanded vocabulary, and cultural context.</p>
+                            <ul class="level-features">
+                                <li>Urdu verb conjugation and tenses</li>
+                                <li>Expanded vocabulary (1000+ words)</li>
+                                <li>Reading simple texts and poetry</li>
+                                <li>Writing short paragraphs and letters</li>
+                                <li>Cultural insights and etiquette</li>
+                                <li>Conversation practice exercises</li>
+                                <li>Certificate of completion</li>
+                            </ul>
+                            <a href="#" class="level-btn"> Continue Learning!</a>
+                        </div>
+                    </div>
+                    
+                    <div class="level-card advanced">
+                        <div class="level-header">
+                            Advanced Level
+                            <div class="free-tag">FREE</div>
+                        </div>
+                        <div class="level-content">
+                            <p class="level-desc">Achieve advanced proficiency with sophisticated language skills for literature and professional contexts.</p>
+                            <ul class="level-features">
+                                <li>Advanced grammar and poetry analysis</li>
+                                <li>Classical and modern Urdu literature</li>
+                                <li>Media and news comprehension</li>
+                                <li>Business and professional Urdu</li>
+                                <li>Creative writing in Urdu</li>
+                                <li>Debate and presentation skills</li>
+                                <li>Certificate of completion</li>
+                            </ul>
+                            <a href="#" class="level-btn"> Master Urdu!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="free-note">
+                <strong>What's Included in Every Free Urdu Course:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Video lessons by native Urdu speakers and scholars</li>
+                    <li>Downloadable Urdu alphabet charts and worksheets</li>
+                    <li>Interactive writing and pronunciation exercises</li>
+                    <li>Certificate of completion for each level</li>
+                    <li>Cultural insights and South Asian traditions</li>
+                    <li>Community forum for practice with other learners</li>
+                    <li>Lifetime access to all course materials</li>
+                    <li>Weekly live sessions with instructors from Pakistan and India</li>
+                </ul>
+            </div>
+            
+            <div class="free-note" style="background: #f3e5f5; border-left-color: #9C27B0;">
+                <strong>Special Features for Urdu Learners:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Nastaliq script writing practice (right-to-left)</li>
+                    <li>Poetry appreciation and analysis</li>
+                    <li>Cultural etiquette and South Asian customs</li>
+                    <li>Urdu idioms and proverbs</li>
+                    <li>Film and drama dialogue comprehension</li>
+                    <li>Historical and literary context</li>
+                </ul>
+            </div>
+            
+            <div class="free-note" style="background: #e8eaf6; border-left-color: #3F51B5;">
+                <strong>Famous Urdu Poets You'll Study:</strong>
+                <p style="margin-top: 10px;">Mirza Ghalib, Allama Iqbal, Faiz Ahmed Faiz, Mir Taqi Mir, and contemporary poets</p>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-content">
+                <!-- <div class="contact-info">
+                    <p>Email: info@alphalanguage.edu</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                    <p>Address: 123 Language Street, Education City</p>
+                </div> -->
+                <div class="copyright">
+                    <p>&copy; 2023 ALPHA Language Academy. All rights reserved.</p>
+                    <p style="margin-top: 5px; font-size: 0.9rem; opacity: 0.8;">Committed to Free Language Education</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

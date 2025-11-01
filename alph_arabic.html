@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arabic-Malayalam Alphabets Learning Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans Malayalam', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #666;
+      font-weight: 400;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .slideshow-container {
+      flex: 1;
+      min-width: 500px;
+      max-width: 600px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slideshow-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #e91e63, #3f51b5);
+    }
+
+    .slide-box {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .subtitle-small {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 25px;
+      font-weight: 400;
+    }
+
+    .alphabets-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      margin: 30px 0;
+    }
+
+    .alphabet {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .malayalam {
+      font-size: 80px;
+      color: #3f51b5;
+      font-weight: 500;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .arabic {
+      font-size: 80px;
+      color: #e91e63;
+      font-weight: 500;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .alphabet-label {
+      font-size: 16px;
+      color: #666;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .all {
+      font-size: 22px;
+      color: #222;
+      text-align: center;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 10px 5px;
+    }
+
+    .all-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .all-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .all-item:last-child {
+      border-bottom: none;
+    }
+
+    .malayalam-all {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .arabic-all {
+      font-size: 24px;
+      color: #e91e63;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #333;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #e91e63, #3f51b5, transparent);
+      border-radius: 3px;
+    }
+
+    .info-panel {
+      flex: 1;
+      min-width: 350px;
+      max-width: 500px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+      padding: 40px;
+    }
+
+    .info-panel h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    .info-panel p {
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature i {
+      color: #e91e63;
+      font-size: 20px;
+    }
+
+    .feature span {
+      font-size: 16px;
+      color: #444;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .control-btn {
+      background: #f0f0f0;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .control-btn:hover {
+      background: #e0e0e0;
+      transform: scale(1.05);
+    }
+
+    .control-btn i {
+      font-size: 20px;
+      color: #555;
+    }
+
+    .progress-container {
+      margin-top: 25px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #e91e63, #3f51b5);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .instructions {
+      margin-top: 25px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .instructions h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .instructions ul {
+      padding-left: 20px;
+    }
+
+    .instructions li {
+      margin-bottom: 8px;
+    }
+
+    .word-examples {
+      margin-top: 25px;
+    }
+
+    .word-examples h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .example-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .example-malayalam {
+      font-size: 18px;
+      color: #3f51b5;
+      font-weight: 500;
+      min-width: 100px;
+    }
+
+    .example-arabic {
+      font-size: 18px;
+      color: #e91e63;
+      font-weight: 500;
+      min-width: 100px;
+    }
+
+    .example-meaning {
+      font-size: 16px;
+      color: #555;
+      flex: 1;
+    }
+
+    .duration-control {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .duration-control label {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .duration-control select {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      background: white;
+      font-size: 14px;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .fade-in {
+      opacity: 1;
+    }
+
+    /* Scrollbar styling */
+    .all::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .all::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .all::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+
+    .all::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .slideshow-container, .info-panel {
+        width: 100%;
+      }
+      
+      .all-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .slideshow-container {
+        padding: 30px 20px;
+        min-width: auto;
+      }
+      
+      .malayalam, .arabic {
+        font-size: 60px;
+      }
+      
+      .all-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .alphabets-container {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Arabic-Malayalam Alphabets Learning Tool</h1>
+    <p class="subtitle">Interactive Arabic-Malayalam alphabet comparison for language learning</p>
+  </header>
+
+  <div class="container">
+    <div class="slideshow-container">
+      <div id="slide" class="slide-box fade-in">
+        <!-- Slideshow content will be loaded here -->
+      </div>
+      
+      <div class="controls">
+        <button class="control-btn" id="prevBtn">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="control-btn" id="playPauseBtn">
+          <i class="fas fa-pause"></i>
+        </button>
+        <button class="control-btn" id="nextBtn">
+          <i class="fas fa-step-forward"></i>
+        </button>
+      </div>
+      
+      <div class="duration-control">
+        <label for="speedControl">Slide Duration:</label>
+        <select id="speedControl">
+          <option value="10000">10 seconds</option>
+          <option value="8000" selected>8 seconds</option>
+          <option value="6000">6 seconds</option>
+          <option value="4000">4 seconds</option>
+        </select>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-label">
+          <span id="currentItem">All Alphabets Overview</span>
+          <span id="progressText">1/29</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="info-panel">
+      <h2>Word Examples</h2>
+      <p>See how the current alphabet is used in common words:</p>
+      
+      <div class="word-examples">
+        <h3 id="currentAlphabet">ا - അലിഫ്</h3>
+        <div class="example-list" id="wordExamples">
+          <!-- Word examples will be dynamically loaded here -->
+        </div>
+      </div>
+      
+      <div class="instructions">
+        <h3>Learning Tips</h3>
+        <ul>
+          <li>Focus on the shape and structure of each character</li>
+          <li>Note the writing direction (Arabic is right-to-left)</li>
+          <li>Practice writing the characters as you learn them</li>
+          <li>Use the manual controls to pause and review difficult characters</li>
+          <li>Adjust the slide duration to match your learning pace</li>
+          <li>Repeat the pronunciation of each word example</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Arabic-Malayalam Alphabets with example words
+    const alphabets = [
+      { ar: "ا", ml: "അലിഫ്", examples: [
+        { ar: "أب", ml: "പിതാവ്", meaning: "Father" },
+        { ar: "أم", ml: "മാതാവ്", meaning: "Mother" },
+        { ar: "بيت", ml: "വീട്", meaning: "House" }
+      ]},
+      { ar: "ب", ml: "ബാ", examples: [
+        { ar: "باب", ml: "കതക്", meaning: "Door" },
+        { ar: "كتاب", ml: "പുസ്തകം", meaning: "Book" },
+        { ar: "تفاح", ml: "ആപ്പിൾ", meaning: "Apple" }
+      ]},
+      { ar: "ت", ml: "താ", examples: [
+        { ar: "تلميذ", ml: "വിദ്യാർത്ഥി", meaning: "Student" },
+        { ar: "تفاح", ml: "ആപ്പിൾ", meaning: "Apple" },
+        { ar: "تمر", ml: "ഖർജൂരം", meaning: "Dates" }
+      ]},
+      { ar: "ث", ml: "ഥാ", examples: [
+        { ar: "ثوب", ml: "പട്ട", meaning: "Dress" },
+        { ar: "ثعلب", ml: "കുറുക്കൻ", meaning: "Fox" },
+        { ar: "ثلج", ml: "മഞ്ഞ്", meaning: "Snow" }
+      ]},
+      { ar: "ج", ml: "ജീം", examples: [
+        { ar: "جمل", ml: "ഒട്ടകം", meaning: "Camel" },
+        { ar: "جبل", ml: "പർവതം", meaning: "Mountain" },
+        { ar: "جديد", ml: "പുതിയ", meaning: "New" }
+      ]},
+      { ar: "ح", ml: "ഹാ", examples: [
+        { ar: "حليب", ml: "പാൽ", meaning: "Milk" },
+        { ar: "حلم", ml: "സ്വപ്നം", meaning: "Dream" },
+        { ar: "حسن", ml: "സുന്ദരൻ", meaning: "Beautiful" }
+      ]},
+      { ar: "خ", ml: "ഖാ", examples: [
+        { ar: "خبز", ml: "റൊട്ടി", meaning: "Bread" },
+        { ar: "خروف", ml: "ചെമ്മരിയാട്", meaning: "Sheep" },
+        { ar: "خيار", ml: "വെള്ളരിക്ക", meaning: "Cucumber" }
+      ]},
+      { ar: "د", ml: "ദാൽ", examples: [
+        { ar: "دار", ml: "വീട്", meaning: "House" },
+        { ar: "دولار", ml: "ഡോളർ", meaning: "Dollar" },
+        { ar: "دجاج", ml: "കോഴി", meaning: "Chicken" }
+      ]},
+      { ar: "ذ", ml: "ധാൽ", examples: [
+        { ar: "ذهب", ml: "സ്വർണം", meaning: "Gold" },
+        { ar: "ذئب", ml: "ചെന്നായ", meaning: "Wolf" },
+        { ar: "ذكر", ml: "പുരുഷൻ", meaning: "Male" }
+      ]},
+      { ar: "ر", ml: "റാ", examples: [
+        { ar: "رجل", ml: "മനുഷ്യൻ", meaning: "Man" },
+        { ar: "ورد", ml: "പൂവ്", meaning: "Flower" },
+        { ar: "ريح", ml: "കാറ്റ്", meaning: "Wind" }
+      ]},
+      { ar: "ز", ml: "സായ്", examples: [
+        { ar: "زهر", ml: "പൂവ്", meaning: "Flower" },
+        { ar: "زيت", ml: "എണ്ണ", meaning: "Oil" },
+        { ar: "زجاج", ml: "ഗ്ലാസ്", meaning: "Glass" }
+      ]},
+      { ar: "س", ml: "സീൻ", examples: [
+        { ar: "سما", ml: "ആകാശം", meaning: "Sky" },
+        { ar: "شمس", ml: "സൂര്യൻ", meaning: "Sun" },
+        { ar: "سمك", ml: "മത്സ്യം", meaning: "Fish" }
+      ]},
+      { ar: "ش", ml: "ഷീൻ", examples: [
+        { ar: "شمس", ml: "സൂര്യൻ", meaning: "Sun" },
+        { ar: "شجرة", ml: "മരം", meaning: "Tree" },
+        { ar: "شهر", ml: "മാസം", meaning: "Month" }
+      ]},
+      { ar: "ص", ml: "സാദ്", examples: [
+        { ar: "صبر", ml: "ക്ഷമ", meaning: "Patience" },
+        { ar: "صلاة", ml: "പ്രാർത്ഥന", meaning: "Prayer" },
+        { ar: "صديق", ml: "സുഹൃത്ത്", meaning: "Friend" }
+      ]},
+      { ar: "ض", ml: "ദാദ്", examples: [
+        { ar: "ضرس", ml: "പല്ല്", meaning: "Tooth" },
+        { ar: "ضفدع", ml: "തവള", meaning: "Frog" },
+        { ar: "ضيق", ml: "ഇടുക്ക്", meaning: "Narrow" }
+      ]},
+      { ar: "ط", ml: "ടാ", examples: [
+        { ar: "طائر", ml: "പക്ഷി", meaning: "Bird" },
+        { ar: "طاولة", ml: "മേശ", meaning: "Table" },
+        { ar: "طبيب", ml: "ഡോക്ടർ", meaning: "Doctor" }
+      ]},
+      { ar: "ظ", ml: "ജാ", examples: [
+        { ar: "ظل", ml: "നിഴൽ", meaning: "Shadow" },
+        { ar: "ظهر", ml: "പുറം", meaning: "Back" },
+        { ar: "ظرف", ml: "പാത്രം", meaning: "Container" }
+      ]},
+      { ar: "ع", ml: "ഐൻ", examples: [
+        { ar: "عين", ml: "കണ്ണ്", meaning: "Eye" },
+        { ar: "علم", ml: "ശാസ്ത്രം", meaning: "Science" },
+        { ar: "عسل", ml: "തേൻ", meaning: "Honey" }
+      ]},
+      { ar: "غ", ml: "ഗൈൻ", examples: [
+        { ar: "غيمة", ml: "മേഘം", meaning: "Cloud" },
+        { ar: "غزال", ml: "മാൻ", meaning: "Deer" },
+        { ar: "غرفة", ml: "മുറി", meaning: "Room" }
+      ]},
+      { ar: "ف", ml: "ഫാ", examples: [
+        { ar: "فيل", ml: "ആന", meaning: "Elephant" },
+        { ar: "فاكهة", ml: "പഴം", meaning: "Fruit" },
+        { ar: "فصل", ml: "വർഷകാലം", meaning: "Season" }
+      ]},
+      { ar: "ق", ml: "ഖാഫ്", examples: [
+        { ar: "قلب", ml: "ഹൃദയം", meaning: "Heart" },
+        { ar: "قمر", ml: "ചന്ദ്രൻ", meaning: "Moon" },
+        { ar: "قلم", ml: "പേന", meaning: "Pen" }
+      ]},
+      { ar: "ك", ml: "കാഫ്", examples: [
+        { ar: "كتاب", ml: "പുസ്തകം", meaning: "Book" },
+        { ar: "كبير", ml: "വലിയ", meaning: "Big" },
+        { ar: "كلب", ml: "നായ", meaning: "Dog" }
+      ]},
+      { ar: "ل", ml: "ലാം", examples: [
+        { ar: "ليل", ml: "രാത്രി", meaning: "Night" },
+        { ar: "لون", ml: "നിറം", meaning: "Color" },
+        { ar: "لبن", ml: "പാൽ", meaning: "Milk" }
+      ]},
+      { ar: "م", ml: "മീം", examples: [
+        { ar: "ماء", ml: "വെള്ളം", meaning: "Water" },
+        { ar: "مدرسة", ml: "സ്കൂൾ", meaning: "School" },
+        { ar: "مملكة", ml: "രാജ്യം", meaning: "Kingdom" }
+      ]},
+      { ar: "ن", ml: "നൂൻ", examples: [
+        { ar: "نهر", ml: "നദി", meaning: "River" },
+        { ar: "نور", ml: "വെളിച്ചം", meaning: "Light" },
+        { ar: "نجم", ml: "നക്ഷത്രം", meaning: "Star" }
+      ]},
+      { ar: "ه", ml: "ഹാ", examples: [
+        { ar: "هواء", ml: "വായു", meaning: "Air" },
+        { ar: "هلال", ml: "ചന്ദ്രക്കല", meaning: "Crescent" },
+        { ar: "هدية", ml: "സമ്മാനം", meaning: "Gift" }
+      ]},
+      { ar: "و", ml: "വാവ്", examples: [
+        { ar: "ولد", ml: "ആൺകുട്ടി", meaning: "Boy" },
+        { ar: "وردة", ml: "റോസ", meaning: "Rose" },
+        { ar: "وجه", ml: "മുഖം", meaning: "Face" }
+      ]},
+      { ar: "ي", ml: "യാ", examples: [
+        { ar: "يد", ml: "കൈ", meaning: "Hand" },
+        { ar: "يوم", ml: "ദിവസം", meaning: "Day" },
+        { ar: "يمين", ml: "വലത്", meaning: "Right" }
+      ]}
+    ];
+
+    const slide = document.getElementById('slide');
+    const progress = document.getElementById('progress');
+    const currentItem = document.getElementById('currentItem');
+    const progressText = document.getElementById('progressText');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const currentAlphabet = document.getElementById('currentAlphabet');
+    const wordExamples = document.getElementById('wordExamples');
+    const speedControl = document.getElementById('speedControl');
+
+    let currentMode = 'all-overview';
+    let currentIndex = 0;
+    let isPlaying = true;
+    let intervalId = null;
+    let slideDuration = 8000; // Default to 8 seconds
+    let overviewDuration = 10000; // Overview slides last longer
+    let totalItems = alphabets.length + 1; // +1 for overview slide
+
+    // Initialize the slideshow
+    showAllAlphabetsOverview();
+
+    // Set up control buttons
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    speedControl.addEventListener('change', updateSlideDuration);
+
+    function updateSlideDuration() {
+      slideDuration = parseInt(speedControl.value);
+      if (isPlaying) {
+        clearInterval(intervalId);
+        startSlideshow();
+      }
+    }
+
+    function togglePlayPause() {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        startSlideshow();
+      } else {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        clearInterval(intervalId);
+      }
+    }
+
+    function startSlideshow() {
+      if (isPlaying) {
+        clearInterval(intervalId);
+        showAllAlphabetsOverview();
+      }
+    }
+
+    function showAllAlphabetsOverview() {
+      currentMode = 'all-overview';
+      updateProgress('All Alphabets Overview', 1, totalItems);
+      updateWordExamples(null);
+      
+      let allHTML = `
+        <div class='section-title'>Arabic-Malayalam Alphabets</div>
+        <div class='subtitle-small'>Total: ${alphabets.length} alphabets</div>
+        <div class='all'>
+          <div class='all-grid'>`;
+      
+      alphabets.forEach(alphabet => {
+        allHTML += `
+            <div class='all-item'>
+              <div class='arabic-all'>${alphabet.ar}</div>
+              <div class='malayalam-all'>${alphabet.ml}</div>
+            </div>`;
+      });
+      
+      allHTML += `
+          </div>
+        </div>`;
+      slide.innerHTML = allHTML;
+
+      // After overview, show individual alphabets
+      setTimeout(() => {
+        if (isPlaying) {
+          showIndividualAlphabets();
+        }
+      }, overviewDuration);
+    }
+
+    function showIndividualAlphabets() {
+      currentMode = 'individual';
+      let index = 0;
+      
+      function showAlphabet() {
+        const alphabet = alphabets[index];
+        updateProgress('Alphabet ' + (index + 1), index + 2, totalItems);
+        updateWordExamples(alphabet);
+        slide.classList.add('fade-out');
+        
+        setTimeout(() => {
+          slide.innerHTML = `
+            <div class="title">Arabic-Malayalam Alphabets</div>
+            <div class="subtitle-small">${index + 1} of ${alphabets.length}</div>
+            <div class="alphabets-container">
+              <div class="alphabet">
+                <div class="alphabet-label">Arabic</div>
+                <div class="arabic">${alphabet.ar}</div>
+              </div>
+              <div class="alphabet">
+                <div class="alphabet-label">Malayalam</div>
+                <div class="malayalam">${alphabet.ml}</div>
+              </div>
+            </div>
+          `;
+          slide.classList.remove('fade-out');
+          slide.classList.add('fade-in');
+        }, 500);
+        
+        index = (index + 1) % alphabets.length;
+      }
+
+      showAlphabet();
+      intervalId = setInterval(showAlphabet, slideDuration);
+
+      // After all alphabets, restart from overview
+      setTimeout(() => {
+        clearInterval(intervalId);
+        if (isPlaying) {
+          showAllAlphabetsOverview();
+        }
+      }, alphabets.length * slideDuration);
+    }
+
+    function updateProgress(itemName, current, total) {
+      currentItem.textContent = itemName;
+      progressText.textContent = `${current}/${total}`;
+      progress.style.width = `${(current / total) * 100}%`;
+    }
+
+    function updateWordExamples(alphabet) {
+      if (!alphabet) {
+        currentAlphabet.textContent = "All Alphabets";
+        wordExamples.innerHTML = `
+          <div class="example-item">
+            <div class="example-meaning">Browse through all Arabic-Malayalam alphabets</div>
+          </div>
+        `;
+        return;
+      }
+      
+      currentAlphabet.textContent = `${alphabet.ar} - ${alphabet.ml}`;
+      
+      let examplesHTML = '';
+      
+      if (alphabet.examples) {
+        alphabet.examples.forEach(example => {
+          examplesHTML += `
+            <div class="example-item">
+              <div class="example-arabic">${example.ar}</div>
+              <div class="example-malayalam">${example.ml}</div>
+              <div class="example-meaning">${example.meaning}</div>
+            </div>
+          `;
+        });
+      }
+      
+      wordExamples.innerHTML = examplesHTML;
+    }
+
+    // Start the slideshow
+    startSlideshow();
+  </script>
+</body>
+</html>

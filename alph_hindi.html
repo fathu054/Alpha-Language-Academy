@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hindi-Malayalam Alphabets Learning Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans Devanagari', 'Noto Sans Malayalam', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+      line-height: 1.5;
+      padding: 15px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #666;
+      font-weight: 400;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .slideshow-container {
+      flex: 1;
+      min-width: 450px;
+      max-width: 550px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slideshow-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #e91e63, #3f51b5);
+    }
+
+    .slide-box {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .subtitle-small {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .hindi {
+      font-size: 65px;
+      color: #e91e63;
+      margin-bottom: 15px;
+      font-weight: 500;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .malayalam {
+      font-size: 50px;
+      color: #3f51b5;
+      font-weight: 500;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .all {
+      font-size: 18px;
+      color: #222;
+      text-align: center;
+      max-height: 350px;
+      overflow-y: auto;
+      padding: 8px 4px;
+    }
+
+    .all-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .all-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .all-item:last-child {
+      border-bottom: none;
+    }
+
+    .hindi-all {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .malayalam-all {
+      font-size: 18px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #333;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #e91e63, #3f51b5, transparent);
+      border-radius: 2px;
+    }
+
+    .info-panel {
+      flex: 1;
+      min-width: 320px;
+      max-width: 450px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+      padding: 30px;
+    }
+
+    .info-panel h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #222;
+    }
+
+    .info-panel p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature i {
+      color: #e91e63;
+      font-size: 18px;
+    }
+
+    .feature span {
+      font-size: 14px;
+      color: #444;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .control-btn {
+      background: #f0f0f0;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .control-btn:hover {
+      background: #e0e0e0;
+      transform: scale(1.05);
+    }
+
+    .control-btn i {
+      font-size: 18px;
+      color: #555;
+    }
+
+    .progress-container {
+      margin-top: 20px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .progress-bar {
+      height: 5px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #e91e63, #3f51b5);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .instructions {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .instructions h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .instructions ul {
+      padding-left: 18px;
+    }
+
+    .instructions li {
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .word-examples {
+      margin-top: 20px;
+    }
+
+    .word-examples h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .example-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 6px;
+    }
+
+    .example-hindi {
+      font-size: 20px;
+      color: #e91e63;
+      font-weight: 500;
+      min-width: 70px;
+    }
+
+    .example-malayalam {
+      font-size: 18px;
+      color: #3f51b5;
+      font-weight: 500;
+      min-width: 70px;
+    }
+
+    .example-meaning {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .duration-control {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .duration-control label {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .duration-control select {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      background: white;
+      font-size: 13px;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .fade-in {
+      opacity: 1;
+    }
+
+    /* Scrollbar styling */
+    .all::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .all::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 8px;
+    }
+
+    .all::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 8px;
+    }
+
+    .all::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .slideshow-container, .info-panel {
+        width: 100%;
+      }
+      
+      .all-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .slideshow-container {
+        padding: 25px 15px;
+        min-width: auto;
+      }
+      
+      .hindi {
+        font-size: 50px;
+      }
+      
+      .malayalam {
+        font-size: 40px;
+      }
+      
+      .all-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hindi-Malayalam Alphabets Learning Tool</h1>
+    <p class="subtitle">Interactive alphabet comparison for language learning</p>
+  </header>
+
+  <div class="container">
+    <div class="slideshow-container">
+      <div id="slide" class="slide-box fade-in">
+        <!-- Slideshow content will be loaded here -->
+      </div>
+      
+      <div class="controls">
+        <button class="control-btn" id="prevBtn">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="control-btn" id="playPauseBtn">
+          <i class="fas fa-pause"></i>
+        </button>
+        <button class="control-btn" id="nextBtn">
+          <i class="fas fa-step-forward"></i>
+        </button>
+      </div>
+      
+      <div class="duration-control">
+        <label for="speedControl">Slide Duration:</label>
+        <select id="speedControl">
+          <option value="8000">8 seconds</option>
+          <option value="6000" selected>6 seconds</option>
+          <option value="4000">4 seconds</option>
+          <option value="2000">2 seconds</option>
+        </select>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-label">
+          <span id="currentItem">Vowels Overview</span>
+          <span id="progressText">1/50</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="info-panel">
+      <h2>Word Examples</h2>
+      <p>See how the current alphabet is used in common words:</p>
+      
+      <div class="word-examples">
+        <h3 id="currentAlphabet">अ (a)</h3>
+        <div class="example-list" id="wordExamples">
+          <!-- Word examples will be dynamically loaded here -->
+        </div>
+      </div>
+      
+      <div class="instructions">
+        <h3>Learning Tips</h3>
+        <ul>
+          <li>Focus on the shape and structure of each character</li>
+          <li>Note the similarities between Hindi and Malayalam scripts</li>
+          <li>Practice writing the characters as you learn them</li>
+          <li>Use the manual controls to pause and review difficult characters</li>
+          <li>Adjust the slide duration to match your learning pace</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Vowels (स्वर) with example words
+    const vowels = [
+     { hi: "अ", ml: "അ", examples: [
+       { hi: "अमर", ml: "അമർ", meaning: "Immortal (or a name)" },
+       { hi: "अब", ml: "അബ്", meaning: "Now" },
+       { hi: "अदब", ml: "അദബ്", meaning: "Respect" }
+     ]},
+     { hi: "आ", ml: "ആ", examples: [
+       { hi: "आम", ml: "ആമ്", meaning: "Mango" },
+       { hi: "आग", ml: "ആഗ്", meaning: "Fire" },
+       { hi: "आज", ml: "ആജ്", meaning: "Today" }
+     ]},
+     { hi: "इ", ml: "ഇ", examples: [
+       { hi: "इधर", ml: "ഇധർ", meaning: "Here" },
+       { hi: "इलाज", ml: "ഇലാജ്", meaning: "Treatment" },
+       { hi: "इनाम", ml: "ഇനാം", meaning: "Prize" }
+     ]},
+     { hi: "ई", ml: "ഈ", examples: [
+       { hi: "ईख", ml: "ഈഖ്", meaning: "Sugarcane" },
+       { hi: "ईमान", ml: "ഈമാൻ", meaning: "Honesty" },
+       { hi: "ईंट", ml: "ഈന്റ്", meaning: "Brick" }
+     ]},
+     { hi: "उ", ml: "ഉ", examples: [
+       { hi: "उधर", ml: "ഉധർ", meaning: "There" },
+       { hi: "उपवन", ml: "ഉപവൻ", meaning: "Garden" },
+       { hi: "उठ", ml: "ഉഠ്", meaning: "Get up" }
+     ]},
+     { hi: "ऊ", ml: "ഊ", examples: [
+       { hi: "ऊपर", ml: "ഊപർ", meaning: "Above" },
+       { hi: "ऊन", ml: "ഊന്", meaning: "Wool" },
+       { hi: "ऊर्जा", ml: "ഊർജ്ജ", meaning: "Energy" }
+     ]},
+     { hi: "ए", ml: "ഏ", examples: [
+       { hi: "एक", ml: "ഏക്", meaning: "One" },
+       { hi: "एकता", ml: "ഏകത", meaning: "Unity" },
+       { hi: "एड़ी", ml: "ഏഡീ", meaning: "Heel" }
+     ]},
+     { hi: "ऐ", ml: "ഐ", examples: [
+       { hi: "ऐनक", ml: "ഐനക്", meaning: "Spectacles" },
+       { hi: "ऐलान", ml: "ഐലാൻ", meaning: "Announcement" },
+       { hi: "ऐसा", ml: "ഐസാ", meaning: "Like this" }
+     ]},
+     { hi: "ओ", ml: "ഓ", examples: [
+       { hi: "ओर", ml: "ഓർ", meaning: "Direction" },
+       { hi: "ओस", ml: "ഓസ്", meaning: "Dew" },
+       { hi: "ओखली", ml: "ഓഖലി", meaning: "Mortar" }
+     ]},
+     { hi: "औ", ml: "ഔ", examples: [
+       { hi: "और", ml: "ഔർ", meaning: "And" },
+       { hi: "औसत", ml: "ഔസത്", meaning: "Average" },
+       { hi: "औरत", ml: "ഔരത്", meaning: "Woman" }
+     ]},
+     { hi: "अं", ml: "അം", examples: [
+       { hi: "अंक", ml: "അംക്", meaning: "Number" },
+       { hi: "अंगूर", ml: "അംഗൂർ", meaning: "Grape" },
+       { hi: "अंडा", ml: "അണ്ഡ", meaning: "Egg" }
+     ]},
+     { hi: "अः", ml: "അഃ", examples: [
+       { hi: "अतः", ml: "അതഃ", meaning: "Hence/Therefore" },
+       { hi: "पुनः", ml: "പുനഃ", meaning: "Again" },
+       { hi: "प्रातः", ml: "പ്രാതഃ", meaning: "Morning" }
+     ]}
+   ];
+
+    // Consonants (व्यंजन) with example words
+    const consonants = [
+     { hi: "क", ml: "ക", examples: [
+       { hi: "कल", ml: "കല്", meaning: "Tomorrow/Yesterday" },
+       { hi: "कम", ml: "കമ്", meaning: "Less" },
+       { hi: "कान", ml: "കാന്", meaning: "Ear" }
+     ]},
+     { hi: "ख", ml: "ഖ", examples: [
+       { hi: "खेल", ml: "ഖേൽ", meaning: "Game/Play" },
+       { hi: "खाना", ml: "ഖാനാ", meaning: "Food/To eat" },
+       { hi: "खुश", ml: "ഖുശ്", meaning: "Happy" }
+     ]},
+     { hi: "ग", ml: "ഗ", examples: [
+       { hi: "गम", ml: "ഗമ്", meaning: "Sorrow" },
+       { hi: "गाना", ml: "ഗാനാ", meaning: "Song" },
+       { hi: "गिन", ml: "ഗിന്", meaning: "Count" }
+     ]},
+     { hi: "घ", ml: "ഘ", examples: [
+       { hi: "घर", ml: "ഘര്", meaning: "House" },
+       { hi: "घड़ी", ml: "ഘഡീ", meaning: "Clock/Watch" },
+       { hi: "घोड़ा", ml: "ഘോഡാ", meaning: "Horse" }
+     ]},
+     { hi: "ङ", ml: "ങ", examples: [
+       { hi: "रंग", ml: "രംഗ്", meaning: "Color" }, // Occurs internally
+       { hi: "अंग", ml: "അംഗം", meaning: "Body part" },
+       { hi: "मंगल", ml: "മംഗല്", meaning: "Tuesday/Auspicious" }
+     ]},
+     // --- Palatal Consonants (Ch-വർഗ്ഗം) ---
+     { hi: "च", ml: "ച", examples: [
+       { hi: "चल", ml: "ചല്", meaning: "Go/Walk" },
+       { hi: "चार", ml: "ചാര്", meaning: "Four" },
+       { hi: "चाबी", ml: "ചാബീ", meaning: "Key" }
+     ]},
+     { hi: "छ", ml: "ഛ", examples: [
+       { hi: "छह", ml: "ഛഹ്", meaning: "Six" },
+       { hi: "छोटा", ml: "ഛോട്ടാ", meaning: "Small" },
+       { hi: "छाता", ml: "ഛാതാ", meaning: "Umbrella" }
+     ]},
+     { hi: "ज", ml: "ജ", examples: [
+       { hi: "जल", ml: "ജല്", meaning: "Water" },
+       { hi: "जंग", ml: "ജംഗ്", meaning: "War/Rust" },
+       { hi: "जवाब", ml: "ജവാബ്", meaning: "Answer" }
+     ]},
+     { hi: "झ", ml: "ഝ", examples: [
+       { hi: "झंडा", ml: "ഝണ്ഡാ", meaning: "Flag" },
+       { hi: "झूठ", ml: "ഝൂഠ്", meaning: "Lie" },
+       { hi: "झट", ml: "ഝട്", meaning: "Quickly" }
+     ]},
+     { hi: "ञ", ml: "ഞ", examples: [
+       { hi: "चंचल", ml: "ചഞ്ചല്", meaning: "Restless" }, // Occurs internally
+       { hi: "पंच", ml: "പഞ്ച്", meaning: "Five/Punch" },
+       { hi: "विज्ञान", ml: "വിജ്ഞാന്", meaning: "Science" } // In compound 'ज्ञ'
+     ]},
+     // --- Retroflex Consonants (T-വർഗ്ഗം) ---
+     { hi: "ट", ml: "ട", examples: [
+       { hi: "टोपी", ml: "ടോപീ", meaning: "Cap" },
+       { hi: "टमाटर", ml: "ടമാടര്", meaning: "Tomato" },
+       { hi: "टांग", ml: "ടാങ്", meaning: "Leg" }
+     ]},
+     { hi: "ठ", ml: "ഠ", examples: [
+       { hi: "ठंडा", ml: "ഠണ്ഡാ", meaning: "Cold" },
+       { hi: "ठीक", ml: "ഠീക്", meaning: "Okay/Correct" },
+       { hi: "ठेला", ml: "ഠേലാ", meaning: "Cart" }
+     ]},
+     { hi: "ड", ml: "ഡ", examples: [
+       { hi: "डर", ml: "ഡര്", meaning: "Fear" },
+       { hi: "डाल", ml: "ഡാല്", meaning: "Branch" },
+       { hi: "डब्बा", ml: "ഡബ്ബാ", meaning: "Box" }
+     ]},
+     { hi: "ढ", ml: "ഢ", examples: [
+       { hi: "ढोल", ml: "ഢോല്", meaning: "Drum" },
+       { hi: "ढक्कन", ml: "ഢക്കന്", meaning: "Lid" },
+       { hi: "ढंग", ml: "ഢംഗ്", meaning: "Way/Manner" }
+     ]},
+     { hi: "ण", ml: "ണ", examples: [
+       { hi: "कारण", ml: "കാരണ്", meaning: "Reason" }, // Occurs internally
+       { hi: "गणित", ml: "ഗണിത്", meaning: "Mathematics" },
+       { hi: "बाण", ml: "ബാൺ", meaning: "Arrow" }
+     ]},
+     // --- Dental Consonants (T-വർഗ്ഗം) ---
+     { hi: "त", ml: "ത", examples: [
+       { hi: "तब", ml: "തബ്", meaning: "Then" },
+       { hi: "तीन", ml: "തീന്", meaning: "Three" },
+       { hi: "ताला", ml: "താലാ", meaning: "Lock" }
+     ]},
+     { hi: "थ", ml: "ഥ", examples: [
+       { hi: "थल", ml: "ഥല്", meaning: "Land" },
+       { hi: "थोड़ा", ml: "ഥോഡാ", meaning: "A little" },
+       { hi: "थाली", ml: "ഥാലീ", meaning: "Plate" }
+     ]},
+     { hi: "द", ml: "ദ", examples: [
+       { hi: "दस", ml: "ദസ്", meaning: "Ten" },
+       { hi: "दाल", ml: "ദാൽ", meaning: "Lentils" },
+       { hi: "दाम", ml: "ദാം", meaning: "Price" }
+     ]},
+     { hi: "ध", ml: "ധ", examples: [
+       { hi: "धन", ml: "ധന്", meaning: "Wealth" },
+       { hi: "धूप", ml: "ധൂപ്", meaning: "Sunlight" },
+       { hi: "धर्म", ml: "ധര്മ്", meaning: "Religion/Duty" }
+     ]},
+     { hi: "न", ml: "ന", examples: [
+       { hi: "नाम", ml: "നാം", meaning: "Name" },
+       { hi: "नया", ml: "നയാ", meaning: "New" },
+       { hi: "नदी", ml: "നദീ", meaning: "River" }
+     ]},
+     // --- Labial Consonants (P-വർഗ്ഗം) ---
+     { hi: "प", ml: "പ", examples: [
+       { hi: "पता", ml: "പതാ", meaning: "Address" },
+       { hi: "पानी", ml: "പാനീ", meaning: "Water" },
+       { hi: "पर", ml: "പര്", meaning: "On/But" }
+     ]},
+     { hi: "फ", ml: "ഫ", examples: [
+       { hi: "फल", ml: "ഫല്", meaning: "Fruit" },
+       { hi: "फूल", ml: "ഫൂല്", meaning: "Flower" },
+       { hi: "फिर", ml: "ഫിര്", meaning: "Again" }
+     ]},
+     { hi: "ब", ml: "ബ", examples: [
+       { hi: "बस", ml: "ബസ്", meaning: "Bus" },
+       { hi: "बात", ml: "ബാത്", meaning: "Talk/Thing" },
+       { hi: "बड़ा", ml: "ബഡാ", meaning: "Big" }
+     ]},
+     { hi: "भ", ml: "ഭ", examples: [
+       { hi: "भाई", ml: "ഭായി", meaning: "Brother" },
+       { hi: "भवन", ml: "ഭവന്", meaning: "Building" },
+       { hi: "भूत", ml: "ഭൂത്", meaning: "Ghost/Past" }
+     ]},
+     { hi: "म", ml: "മ", examples: [
+       { hi: "माँ", ml: "മാം", meaning: "Mother" },
+       { hi: "मेरा", ml: "മേരാ", meaning: "My" },
+       { hi: "मन", ml: "മന്", meaning: "Mind/Heart" }
+     ]},
+     // --- Approximants/Semivowels ---
+     { hi: "य", ml: "യ", examples: [
+       { hi: "याद", ml: "യാദ്", meaning: "Memory/Remember" },
+       { hi: "यहाँ", ml: "യഹാം", meaning: "Here" },
+       { hi: "यश", ml: "യശ്", meaning: "Fame" }
+     ]},
+     { hi: "र", ml: "ര", examples: [
+       { hi: "रात", ml: "രാത്", meaning: "Night" },
+       { hi: "रंग", ml: "രംഗ്", meaning: "Color" },
+       { hi: "रख", ml: "രഖ്", meaning: "Keep" }
+     ]},
+     { hi: "ल", ml: "ല", examples: [
+       { hi: "लोग", ml: "ലോഗ്", meaning: "People" },
+       { hi: "लाल", ml: "ലാല്", meaning: "Red" },
+       { hi: "लेना", ml: "ലേനാ", meaning: "To take" }
+     ]},
+     { hi: "व", ml: "വ", examples: [
+       { hi: "वह", ml: "വഹ്", meaning: "He/She/That" },
+       { hi: "वक्त", ml: "വക്ത്", meaning: "Time" },
+       { hi: "वन", ml: "വന്", meaning: "Forest" }
+     ]},
+     // --- Sibilants and Aspirate ---
+     { hi: "श", ml: "ശ", examples: [
+       { hi: "शहर", ml: "ശഹര്", meaning: "City" },
+       { hi: "शांत", ml: "ശാന്ത്", meaning: "Quiet/Peaceful" },
+       { hi: "शाम", ml: "ശാം", meaning: "Evening" }
+     ]},
+     { hi: "ष", ml: "ഷ", examples: [
+       { hi: "भाषा", ml: "ഭാഷാ", meaning: "Language" }, // Occurs internally
+       { hi: "विषय", ml: "വിഷയ്", meaning: "Subject" },
+       { hi: "पुरुष", ml: "പുരുഷ്", meaning: "Man" }
+     ]},
+     { hi: "स", ml: "സ", examples: [
+       { hi: "सब", ml: "സബ്", meaning: "All" },
+       { hi: "साल", ml: "സാല്", meaning: "Year" },
+       { hi: "सात", ml: "സാത്", meaning: "Seven" }
+     ]},
+     { hi: "ह", ml: "ഹ", examples: [
+       { hi: "हम", ml: "ഹമ്", meaning: "We" },
+       { hi: "हाथ", ml: "ഹാഥ്", meaning: "Hand" },
+       { hi: "हाँ", ml: "ഹാം", meaning: "Yes" }
+     ]},
+     // --- Compound and Secondary Consonants ---
+     { hi: "क्ष", ml: "ക്ഷ", examples: [
+       { hi: "क्षम", ml: "ക്ഷമ്", meaning: "Ability/Patience" }, // Starts the word
+       { hi: "कक्षा", ml: "കക്ഷാ", meaning: "Classroom" },
+       { hi: "रक्षा", ml: "രക്ഷാ", meaning: "Protection" }
+     ]},
+     { hi: "त्र", ml: "ത്ര", examples: [
+       { hi: "त्रिशूल", ml: "ത്രിശൂല്", meaning: "Trident" }, // Starts the word
+       { hi: "मित्र", ml: "മിത്ര", meaning: "Friend" },
+       { hi: "पत्र", ml: "പത്ര", meaning: "Letter" }
+     ]},
+     { hi: "ज्ञ", ml: "ജ്ഞ", examples: [
+       { hi: "ज्ञान", ml: "ജ്ഞാന്", meaning: "Knowledge" }, // Starts the word
+       { hi: "ज्ञानी", ml: "ജ്ഞാനീ", meaning: "Wise person" },
+       { hi: "आज्ञा", ml: "ആജ്ഞാ", meaning: "Command/Permission" }
+     ]},
+     { hi: "ड़", ml: "റ്", examples: [
+       { hi: "सड़क", ml: "സഡക്", meaning: "Road" }, // Occurs internally
+       { hi: "पहाड़", ml: "പഹാഡ്", meaning: "Mountain" },
+       { hi: "कपड़ा", ml: "കപഡാ", meaning: "Cloth" }
+     ]},
+     { hi: "ढ़", ml: "ള്", examples: [
+       { hi: "पढ़ना", ml: "പഢ്നാ", meaning: "To read/study" }, // Occurs internally
+       { hi: "सीढ़ी", ml: "സീഢീ", meaning: "Stair/Ladder" },
+       { hi: "बाढ़", ml: "ബാഢ്", meaning: "Flood" }
+     ]}
+   ];
+
+    const slide = document.getElementById('slide');
+    const progress = document.getElementById('progress');
+    const currentItem = document.getElementById('currentItem');
+    const progressText = document.getElementById('progressText');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentAlphabet = document.getElementById('currentAlphabet');
+    const wordExamples = document.getElementById('wordExamples');
+    const speedControl = document.getElementById('speedControl');
+
+    let currentMode = 'vowels-all';
+    let currentIndex = 0;
+    let isPlaying = true;
+    let intervalId = null;
+    let slideDuration = 6000; // Default to 6 seconds
+    let overviewDuration = 8000; // Overview slides last longer
+    let totalItems = vowels.length + consonants.length + 2; // +2 for the two overview slides
+
+    // Initialize the slideshow
+    showVowelsAll();
+
+    // Set up control buttons
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    speedControl.addEventListener('change', updateSlideDuration);
+
+    function updateSlideDuration() {
+      slideDuration = parseInt(speedControl.value);
+      if (isPlaying) {
+        clearInterval(intervalId);
+        startSlideshow();
+      }
+    }
+
+    function togglePlayPause() {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        startSlideshow();
+      } else {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        clearInterval(intervalId);
+      }
+    }
+
+    function startSlideshow() {
+      if (isPlaying) {
+        clearInterval(intervalId);
+        // Step 1: Show all vowels (for overviewDuration)
+        showVowelsAll();
+        
+        // Step 2: After overviewDuration, show each vowel
+        setTimeout(() => {
+          currentMode = 'vowels-individual';
+          let index = 0;
+          
+          function showVowel() {
+            const v = vowels[index];
+            updateProgress('Vowel ' + (index + 1), index + 1, vowels.length);
+            updateWordExamples(v);
+            slide.classList.add('fade-out');
+            
+            setTimeout(() => {
+              slide.innerHTML = `
+                <div class="title">Vowels (स्वर)</div>
+                <div class="subtitle-small">${index + 1} of ${vowels.length}</div>
+                <div class="hindi">${v.hi}</div>
+                <div class="malayalam">${v.ml}</div>
+              `;
+              slide.classList.remove('fade-out');
+              slide.classList.add('fade-in');
+            }, 500);
+            
+            index = (index + 1) % vowels.length;
+          }
+
+          showVowel();
+          intervalId = setInterval(showVowel, slideDuration);
+
+          // After vowels, show all consonants (overviewDuration), then each consonant
+          setTimeout(() => {
+            clearInterval(intervalId);
+            currentMode = 'consonants-all';
+            showConsonantsAll();
+            
+            setTimeout(() => {
+              currentMode = 'consonants-individual';
+              let ci = 0;
+              
+              function showConsonant() {
+                const c = consonants[ci];
+                updateProgress('Consonant ' + (ci + 1), vowels.length + ci + 2, consonants.length);
+                updateWordExamples(c);
+                slide.classList.add('fade-out');
+                
+                setTimeout(() => {
+                  slide.innerHTML = `
+                    <div class="title">Consonants (व्यंजन)</div>
+                    <div class="subtitle-small">${ci + 1} of ${consonants.length}</div>
+                    <div class="hindi">${c.hi}</div>
+                    <div class="malayalam">${c.ml}</div>
+                  `;
+                  slide.classList.remove('fade-out');
+                  slide.classList.add('fade-in');
+                }, 500);
+                
+                ci = (ci + 1) % consonants.length;
+              }
+
+              showConsonant();
+              intervalId = setInterval(showConsonant, slideDuration);
+            }, overviewDuration);
+
+          }, vowels.length * slideDuration + overviewDuration);
+        }, overviewDuration);
+      }
+    }
+
+    function showVowelsAll() {
+      currentMode = 'vowels-all';
+      updateProgress('Vowels Overview', 1, totalItems);
+      updateWordExamples(null);
+      
+      let allHTML = `
+        <div class='section-title'>Vowels (स्वर)</div>
+        <div class='subtitle-small'>Total: ${vowels.length} characters</div>
+        <div class='all'>
+          <div class='all-grid'>`;
+      
+      vowels.forEach(v => {
+        allHTML += `
+            <div class='all-item'>
+              <div class='hindi-all'>${v.hi}</div>
+              <div class='malayalam-all'>${v.ml}</div>
+            </div>`;
+      });
+      
+      allHTML += `
+          </div>
+        </div>`;
+      slide.innerHTML = allHTML;
+    }
+
+    function showConsonantsAll() {
+      currentMode = 'consonants-all';
+      updateProgress('Consonants Overview', vowels.length + 1, totalItems);
+      updateWordExamples(null);
+      
+      let allCons = `
+        <div class='section-title'>Consonants (व्यंजन)</div>
+        <div class='subtitle-small'>Total: ${consonants.length} characters</div>
+        <div class='all'>
+          <div class='all-grid'>`;
+      
+      consonants.forEach(c => {
+        allCons += `
+            <div class='all-item'>
+              <div class='hindi-all'>${c.hi}</div>
+              <div class='malayalam-all'>${c.ml}</div>
+            </div>`;
+      });
+      
+      allCons += `
+          </div>
+        </div>`;
+      
+      slide.classList.add('fade-out');
+      setTimeout(() => {
+        slide.innerHTML = allCons;
+        slide.classList.remove('fade-out');
+        slide.classList.add('fade-in');
+      }, 500);
+    }
+
+    function updateProgress(itemName, current, total) {
+      currentItem.textContent = itemName;
+      progressText.textContent = `${current}/${total}`;
+      progress.style.width = `${(current / total) * 100}%`;
+    }
+
+    function updateWordExamples(alphabet) {
+      if (!alphabet) {
+        currentAlphabet.textContent = "All Alphabets";
+        wordExamples.innerHTML = `
+          <div class="example-item">
+            <div class="example-meaning">Select an alphabet to see word examples</div>
+          </div>
+        `;
+        return;
+      }
+      
+      currentAlphabet.textContent = `${alphabet.hi} (${getTransliteration(alphabet.hi)})`;
+      
+      let examplesHTML = '';
+      alphabet.examples.forEach(example => {
+        examplesHTML += `
+          <div class="example-item">
+            <div class="example-hindi">${example.hi}</div>
+            <div class="example-malayalam">${example.ml}</div>
+            <div class="example-meaning">${example.meaning}</div>
+          </div>
+        `;
+      });
+      
+      wordExamples.innerHTML = examplesHTML;
+    }
+
+    function getTransliteration(char) {
+      const transliterations = {
+    // --- Vowels (Swar) ---
+    "अ": "a", 
+    "आ": "aa", 
+    "इ": "i", 
+    "ई": "ee", 
+    "उ": "u",
+    "ऊ": "oo", 
+    "ऋ": "ri", // R-vowel sound
+    "ए": "e", 
+    "ऐ": "ai", 
+    "ओ": "o", 
+    "औ": "au",
+    "अं": "an/am", // Anusvār (Nasalization)
+    "अः": "ah", // Visarga (Aspiration)
+    // --- Consonants (Vyanjan) ---
+    // Velar (K-varga)
+    "क": "ka", 
+    "ख": "kha", 
+    "ग": "ga",
+    "घ": "gha",
+    "ङ": "nga", // Velar nasal
+    // Palatal (Ch-varga)
+    "च": "cha", 
+    "छ": "chha", 
+    "ज": "ja", 
+    "झ": "jha",
+    "ञ": "nya", // Palatal nasal
+    // Retroflex (Ṭ-varga) - sounds made by curling the tongue back
+    "ट": "ta", 
+    "ठ": "tha",
+    "ड": "da",
+    "ढ": "dha",
+    "ण": "na", // Retroflex nasal
+    // Dental (T-varga) - sounds made with the tongue touching the teeth
+    "त": "ta", 
+    "थ": "tha",
+    "द": "da",
+    "ध": "dha",
+    "न": "na", // Dental nasal
+    // Labial (P-varga)
+    "प": "pa", 
+    "फ": "pha",
+    "ब": "ba",
+    "भ": "bha",
+    "म": "ma", // Labial nasal
+    // Semi-vowels/Approximants
+    "य": "ya",
+    "र": "ra",
+    "ल": "la",
+    "व": "va/wa",
+    // Sibilants and Aspirate
+    "श": "sha", // Palatal sibilant
+    "ष": "sha", // Retroflex sibilant (often pronounced 'sha')
+    "स": "sa", // Dental sibilant
+    "ह": "ha",
+    // Conjunct Consonants (Samyuktākṣhar)
+    "क्ष": "ksha",
+    "त्र": "tra",
+    "ज्ञ": "gya/jna",
+    "श्र": "shra",
+    // Flapped Consonants (Unique to Hindi)
+    "ड़": "rra", // Flap
+    "ढ़": "rrha" // Aspirated flap
+};
+      return transliterations[char] || char;
+    }
+
+    // Start the slideshow
+    startSlideshow();
+  </script>
+</body>
+</html>
